@@ -52,8 +52,10 @@ class Create extends React.Component {
                     mobile: this.refs.mobile.value,
                     dob: this.refs.dob.value
                 };
+
+                console.log(data);
                 alert("succesfully Saved")
-                fetch(" http://localhost:3333/comments", {
+                fetch(" http://localhost:3001/Create", {
                     method: "POST",
                     headers: {
                         'Accept': 'application/json',
@@ -63,7 +65,7 @@ class Create extends React.Component {
                 }).then((resp) => {
                     // console.warn("resp",resp);;
                     resp.json().then((result) => {
-                        console.warn("result", result)
+                        console.log("result", result)
                     })
                 })
             }
@@ -111,7 +113,7 @@ class Create extends React.Component {
             <div className="wrapper">
                 <div className="form-wrapper">
                     <h1>Create Account</h1>
-                    <form onSubmit={this.handleSubmit} noValidate required>
+                    <form method="POST" onSubmit={this.handleSubmit} noValidate required>
                         <div className="firstName">
                             <label htmlFor="firstName">First Name</label>
                             <input
@@ -119,6 +121,7 @@ class Create extends React.Component {
                                 placeholder="First Name"
                                 type="text"
                                 name="firstName"
+                                value={this.state.firstName}
                                 ref="firstName"
                                 noValidate
                                 onChange={this.handleChange}
@@ -137,6 +140,7 @@ class Create extends React.Component {
                                 placeholder="Last Name"
                                 type="text"
                                 name="lastName"
+                                value={this.state.lastName}
                                 noValidate
                                 ref="lastName"
                                 onChange={this.handleChange}
@@ -153,6 +157,7 @@ class Create extends React.Component {
                                 placeholder="Email"
                                 type="email"
                                 name="email"
+                                value={this.state.email}
                                 ref="email"
                                 noValidate
                                 onChange={this.handleChange}
@@ -170,6 +175,7 @@ class Create extends React.Component {
                                 placeholder="Mobile"
                                 type="tell"
                                 name="mobile"
+                                value={this.state.mobile}
                                 ref="mobile"
                                 noValidate
                                 onChange={this.handleChange}
@@ -186,6 +192,7 @@ class Create extends React.Component {
                                 className={formErrors.dob.length > 0 ? "error" : null}
                                 type="date"
                                 name="dob"
+                                value={this.state.dob}
                                 ref="dob"
                                 noValidate
                                 onChange={this.handleChange}

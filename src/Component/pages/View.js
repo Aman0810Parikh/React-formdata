@@ -17,29 +17,32 @@ export default function View() {
     }, [])
 
     function getList() {
-        fetch("http://localhost:3333/comments").then((result) => {
+        fetch("http://localhost:3001/View").then((result) => {
             result.json().then((resp) => {
                 // console.warn(resp)
                 setUser(resp)
+                console.log(resp);
 
             })
         })
     }
 
     function actionButton(params) {
-        console.log(params);
-        fetch(`http://localhost:3333/comments/${params.data.id}`, {
+        console.log("id:",params.data._id);
+        fetch(`http://localhost:3001/View/${params.data._id}`, {
             method: 'delete'
         }).then((res) => {
             res.json().then((resp) => {
                 console.warn(resp)
+                console.log("resp:",resp)
             })
         })
         getList()
     }
 
     function UpdateButton(params){
-        fetch(`http://localhost:3333/comments/${params.data.id}`, {
+        console.log("id:",params.data);
+        fetch(`http://localhost:3001/View/${params.data._id}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -49,6 +52,7 @@ export default function View() {
         }).then((result) => {
             result.json().then((resp) => {
                 console.warn(resp)
+                console.log("update:",resp)
                 getList()
             })
         })
@@ -69,7 +73,7 @@ export default function View() {
 
     const columns=[
         {
-            headerName:"ID", field:'id'
+            headerName:"ID", field:'_id'
         },
         {
             headerName:"FIRSTNAME", field:'firstName', filter:true, editable:true
@@ -87,13 +91,13 @@ export default function View() {
             headerName:"DOB", field:'dob', sortable:true,editable:true
         },
         {
-            headerName: "DELETE",field:"id",
+            headerName: "DELETE",field:"_id",
             cellRendererFramework:(params)=><div>
             <button onClick={()=>actionButton(params)}>Delete</button>
             </div>
         },
         {
-            headerName: "UPDATE",field:"id",
+            headerName: "UPDATE",field:"_id",
             cellRendererFramework:(params)=><div >
             <button  onClick={()=>UpdateButton(params)}>Update</button>
             </div>
